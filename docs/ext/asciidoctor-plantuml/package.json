@@ -1,0 +1,96 @@
+{
+  "_from": "asciidoctor-plantuml",
+  "_id": "asciidoctor-plantuml@1.1.13",
+  "_inBundle": false,
+  "_integrity": "sha512-b6xkvyiCIQ9HIQZ5/Od2kc8ARSHFF6ljXoFrKONPxJ0DTko46KGrVuTmg3PVK5vPfSME1Sj0vj5xTifgDzLO8g==",
+  "_location": "/asciidoctor-plantuml",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "asciidoctor-plantuml",
+    "name": "asciidoctor-plantuml",
+    "escapedName": "asciidoctor-plantuml",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/asciidoctor-plantuml/-/asciidoctor-plantuml-1.1.13.tgz",
+  "_shasum": "787b5d83aed5b3a1859aab607a5c84fe7bb5ed76",
+  "_spec": "asciidoctor-plantuml",
+  "_where": "C:\\Users\\YT\\Desktop\\workspace\\asciidoc",
+  "author": {
+    "name": "Evgeny Shepelyuk"
+  },
+  "bugs": {
+    "url": "https://github.com/eshepelyuk/asciidoctor-plantuml.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "asciidoctor.js": "^1.5.9",
+    "mkdirp": "^0.5.1",
+    "plantuml-encoder": "^1.2.5",
+    "rusha": "^0.8.13",
+    "unxhr": "1.0.1"
+  },
+  "deprecated": false,
+  "description": "PlantUML support for Asciidoctor.JS.",
+  "devDependencies": {
+    "cheerio": "1.0.0-rc.2",
+    "eslint": "^4.19.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-jsx": "^5.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "hasha": "3.0.0",
+    "jasmine": "3.1.0",
+    "jasmine-expect": "^3.8.3",
+    "jasmine-spec-reporter": "^4.2.1",
+    "karma": "2.0.0",
+    "karma-browserify": "5.2.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-jasmine": "1.1.1",
+    "puppeteer": "^1.2.0",
+    "tmp": "0.0.33",
+    "webpack": "4.1.1",
+    "webpack-cli": "2.0.12"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/eshepelyuk/asciidoctor-plantuml.js#readme",
+  "keywords": [
+    "asciidoctor",
+    "plantuml",
+    "antora",
+    "asciidoctorjs",
+    "diagram",
+    "ditaa"
+  ],
+  "license": "ISC",
+  "main": "dist/node/asciidoctor-plantuml.js",
+  "name": "asciidoctor-plantuml",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eshepelyuk/asciidoctor-plantuml.js.git"
+  },
+  "scripts": {
+    "build": "yarn build:browser && yarn build:node",
+    "build:browser": "webpack",
+    "build:node": "bash ./script/build_node.sh",
+    "clean": "rm -rf dist",
+    "lint": "eslint test src",
+    "test": "yarn test:node && yarn test:browser",
+    "test:browser": "karma start karma.conf.js",
+    "test:node": "jasmine --config=jasmine.json",
+    "update_changelog": "node script/update_changelog.js"
+  },
+  "version": "1.1.13"
+}

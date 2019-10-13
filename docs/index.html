@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>sakusakudoc</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="css/sakusakudoc.css" />
+		
+		<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6"></script>
+		<script src="js/sakusakudb.js"></script>
+	</head>
+	<body>
+		<header>
+			<section class="MenuArea Layout">
+				<div class="Left Menu">
+					<ul>
+						<li><div class="ripple" onclick="ctrl.toggleDocuments()">
+							<a href="#"><i class="material-icons">folder</i><br>MyDocs</a>
+						</div></li>
+					</ul>
+					<img id="doc-logo" class="icon-editing" src="img/adoc.png" alt="logo" />
+					<input type="text" class="title filename-editing" value="" spellcheck="false" onchange="ctrl.rename()">
+				</div>
+				
+				<div class="Right Menu">
+					<ul>
+						<li>
+							<div class="ripple" onclick="ctrl.showSideMenu()">
+								<a href="#"><i class="material-icons">menu</i><br>Menu</a>
+							</div>
+						</li>
+					</ul>
+					<ul>
+						<li><div class="ripple" onclick="ctrl.toggleLiveMode()">
+							<a href="#"><i id="live-mode" class="material-icons toggle-on">update</i><br>LiveRender</a>
+						</div></li>
+					</ul>
+					<!-- TODO:開発中 スクロールロックは難易度高そう
+					<ul>
+						<li><div class="ripple">
+							<a href="#" onclick="ctrl.preview()"><i class="material-icons ripple toggle-on">vertical_align_center</i><br>ScrollLock</a>
+						</div></li>
+					</ul>
+					-->
+					<!-- TODO:開発中 PDF.jsの解析と試行錯誤の時間が必要
+					<ul>
+						<li><div class="ripple">
+							<a href="#" onclick="ctrl.preview()"><i class="material-icons ripple toggle-off">picture_as_pdf</i><br>PDFView</a>
+						</div></li>
+					</ul>
+					-->
+				</div>
+			</section>
+		</header>
+		<article>
+			<div id="documents" class="Layout NaviArea HideNow">
+				<div id="nav-header" class="area-header">
+					<!-- TODO:開発中 ファイル追加・削除 -->
+					<div style="margin-top: 5px;">　　ファイル管理機能は開発中...</div>
+				</div>
+				<div id="nav-contents">
+					<input id="import-asset" type="file" style="display:none" />
+					<div><label>　ContextRoot /</label></div>
+					<ul class="root">
+						<li><div>　　<i class="material-icons">folder</i><label>_assets</label></div></li>
+						<ul class="assets">
+						</ul>
+						<li><div>　　<i class="material-icons">folder</i><label>_images</label></div></li>
+						<ul class="images">
+						</ul>
+						<li><div>　　<img class="icon-editing" alt="editor-logo" style="visibility:hidden" /><input type="text" class="filename-editing" onchange="ctrl.rename()" spellcheck="false"></input></div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="Layout EditArea">
+				<div class="area-header">
+					<ul>
+						<li><select id="language" name="language" onchange="ctrl.changeEditorOption(this)">
+							<option value="adoc" selected>AsciiDoc</option>
+							<option value="markd">Markdown</option>
+						</select></li>
+						<li><select id="ace-theme" name="ace-theme" onchange="ctrl.changeEditorOption(this)">
+							<option value="ace/theme/twilight" selected>twilight</option>
+							<option value="ace/theme/monokai">monokai</option>
+							<option value="ace/theme/chrome">chrome</option>
+							<option value="ace/theme/clouds">clouds</option>
+							<option value="ace/theme/clouds_midnight">clouds_midnight</option>
+							<option value="ace/theme/pastel_on_dark">pastel_on_dark</option>
+						</select></li>
+						<li><select id="font-size" name="font-size" onchange="ctrl.changeEditorOption(this)">
+							<option value="10">size:10pt</option>
+							<option value="12" selected>size:12pt</option>
+							<option value="14">size:14pt</option>
+							<option value="16">size:16pt</option>
+							<option value="18">size:18pt</option>
+							<option value="20">size:20pt</option>
+							<option value="34">size:34pt</option>
+						</select></li>
+						<li><select id="wrap-pt" name="font-size" onchange="ctrl.changeEditorOption(this)">
+							<option value="50">wrap:50pt</option>
+							<option value="70" selected>wrap:70pt</option>
+							<option value="75">wrap:75pt</option>
+							<option value="80">wrap:80pt</option>
+							<option value="85">wrap:85pt</option>
+							<option value="90">wrap:90pt</option>
+							<option value="100">wrap:100pt</option>
+							<option value="110">wrap:110pt</option>
+							<option value="135">wrap:135pt</option>
+							<option value="150">wrap:150pt</option>
+							<option value="165">wrap:165pt</option>
+							<option value="180">wrap:180pt</option>
+							<option value="200">wrap:200pt</option>
+							<option value="220">wrap:220pt</option>
+						</select></li>
+						<!--
+						<li><select id="font-family" name="font-family" onchange="ctrl.changeEditorOption(this)">
+							<option value="monospace" selected>monospace</option>
+						</select></li>
+						-->
+					</ul>
+				</div>
+				<pre id="editor">
+				</pre>
+			</div>
+			<div class="Layout PreviewArea">
+				<div class="area-header">
+					<ul>
+						<li><select name="output" disabled>
+							<option value="html5" selected>HTML5</option>
+						</select></li>
+						<li><select name="view-mode" disabled>
+							<option value="browser" selected>browser</option>
+						</select></li>
+					</ul>
+					<ul class="Right Menu">
+						
+					</ul>
+				</div>
+				<iframe id="Previewer" name="Previewer">
+				</iframe>
+				<!--
+				<iframe id="PdfViewer" name="PdfViewer">
+				</iframe>
+				-->
+			</div>
+		</article>
+		<footer>
+			<section>
+				<div id="fab1" class="ripple FAB" onclick="ctrl.toggleEditMode()">
+					<a href="#">
+						<i id="edit-mode" class="material-icons">aspect_ratio</i>
+					</a>
+				</div>
+				<!-- FABは1個にする
+				<div id="fab2" class="ripple FAB" onclick="ctrl.preview()">
+					<a href="#">
+						<i class="material-icons">image_search</i>
+					</a>
+				</div>
+				-->
+			</section>
+			<section id="toast">
+				<div class="message"></div>
+			</section>
+		</footer>
+		<aside>
+			<div id="g_menu">
+				<div id="close" onclick="ctrl.showFAB()"><a href="#"><i class="material-icons">close</i></a></div>
+				<!--
+				<input id="import-doc" type="file" style="display:none" />
+				-->
+				<ul>
+					<li><i class="material-icons">archive</i><a href="#" onclick="ctrl.export();ctrl.showFAB()">Download As HTML</a></li>
+					<li><i class="material-icons">save</i><a href="#" onclick="ctrl.save();ctrl.showFAB()">Save Document</a></li>
+					<li><i class="material-icons">restore</i><a href="#" onclick="ctrl.reset();ctrl.showFAB()">Reset Workspace</a></li>
+					<!--
+					<li><i class="material-icons">add_circle_outline</i><a href="#" target="_blank">New Document</a></li>
+					<li><a href="#" onclick="ctrl.import()">Import To Workspace</a></li>
+					<li><a href="#" onclick="ctrl.print()">Print HTML Page</a></li>
+					-->
+					<li><i class="material-icons">help</i><a href="#" target="_blank">About (Github Page)</a></li>
+				</ul>
+			</div>
+		</aside>
+		
+		<script src="ext/ace/src-min-noconflict/ace.js"></script>
+		<script src="ext/ace/src-min-noconflict/mode-asciidoc.js"></script>
+		<script src="ext/ace/src-min-noconflict/mode-markdown.js"></script>
+		<script src="ext/ace/src-min-noconflict/theme-twilight.js"></script>
+		<script src="ext/ace/src-min-noconflict/theme-monokai.js"></script>
+		<script src="ext/ace/src-min-noconflict/theme-chrome.js"></script>
+		<!--
+		<script src="ext/ace/src-min-noconflict/ext-language_tools.js"></script>
+		-->
+		
+		<script src="ext/asciidoctor.js/dist/asciidoctor.min.js"></script>
+		<script src="ext/asciidoctor-plantuml/dist/browser/asciidoctor-plantuml.js"></script>
+		
+		<script src="ext/marked/marked.min.js"></script>
+		
+		<script src="ext/dompurify/dist/purify.min.js"></script>
+		
+		<script src="ext/highlight/highlight.min.js"></script>
+		
+		<script src="js/template.js"></script>
+		<script src="js/sakusakudoc.js"></script>
+		<script src="js/sakusakueditor.js"></script>
+		<script src="js/sakusakuvirewer.js"></script>
+		<script src="js/sakusakucontroller.js"></script>
+	</body>
+</html>
